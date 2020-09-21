@@ -38,21 +38,22 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Tan Wei Jie
+<img src="images/tanweijie.png" width="200px">
+
+
+[[github](http://github.com/tanweijie123)]
+
+
+* Role: Developer
+* Responsibilities: Data
+
+### Maguire Ong
 
 <img src="images/johndoe.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/maguireong)]
 
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### Tan Wei Jie
-
-<img src="images/tanweijie.png" width="200px">
-
-[[github](http://github.com/tanweijie123)]
 
 * Role: Developer
 * Responsibilities: Data
