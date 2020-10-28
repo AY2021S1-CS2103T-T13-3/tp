@@ -87,16 +87,16 @@ public class ClientInfoPage extends UiPart<AnchorPane> {
     private TableView<Schedule> schedulesToDisplay;
 
     @FXML
-    TableColumn<Schedule, Interval> intervalColumn;
+    private TableColumn<Schedule, Interval> intervalColumn;
 
     @FXML
-    TableColumn<Schedule, ExerciseType> exTypeColumn;
+    private TableColumn<Schedule, ExerciseType> exTypeColumn;
 
     @FXML
-    TableColumn<Schedule, Remark> remarkColumn;
+    private TableColumn<Schedule, Remark> remarkColumn;
 
     @FXML
-    TableColumn<Schedule, PaymentStatus> paymentStatusColumn;
+    private TableColumn<Schedule, PaymentStatus> paymentStatusColumn;
 
     /**
      * Displays a client's profile in a separate window.

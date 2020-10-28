@@ -43,7 +43,7 @@
                 </AnchorPane>
                 <AnchorPane GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="3">
                     <children>
-                        <ImageView fitHeight="400.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+                        <ImageView fitHeight="350.0" fitWidth="175.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
                             <image>
                                 <!-- Image (No attribution) from https://www.pngkey.com/detail/u2t4i1u2u2r5w7q8_2-3-3-4-4-5-5-6/ -->
                                 <Image url="@../images/fitness_mascot.png" />
