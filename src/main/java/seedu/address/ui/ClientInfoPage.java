@@ -86,6 +86,17 @@ public class ClientInfoPage extends UiPart<AnchorPane> {
     @FXML
     private TableView<Schedule> schedulesToDisplay;
 
+    @FXML
+    TableColumn<Schedule, Interval> intervalColumn;
+
+    @FXML
+    TableColumn<Schedule, ExerciseType> exTypeColumn;
+
+    @FXML
+    TableColumn<Schedule, Remark> remarkColumn;
+
+    @FXML
+    TableColumn<Schedule, PaymentStatus> paymentStatusColumn;
 
     /**
      * Displays a client's profile in a separate window.
@@ -215,28 +226,22 @@ public class ClientInfoPage extends UiPart<AnchorPane> {
     private void initializeSchedule(List<Schedule> associatedSchedules) {
         Collections.sort(associatedSchedules);
         Collections.reverse(associatedSchedules);
-        TableColumn<Schedule, Interval> intervalColumn = new TableColumn<>("Interval");
+
+        this.schedulesToDisplay.setPlaceholder(new Label("No schedules to display"));
+        this.schedulesToDisplay.setPrefHeight(250);
+
         intervalColumn.setCellValueFactory(new PropertyValueFactory<>("interval"));
-
-        TableColumn<Schedule, ExerciseType> exTypeColumn = new TableColumn<>("Exercise Type");
         exTypeColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseType"));
-
-        TableColumn<Schedule, Remark> remarkColumn = new TableColumn<>("Remark");
         remarkColumn.setCellValueFactory(new PropertyValueFactory<>("remark"));
-
-        TableColumn<Schedule, PaymentStatus> paymentStatusColumn = new TableColumn<>("Payment");
         paymentStatusColumn.setCellValueFactory(new PropertyValueFactory<>("paymentStatus"));
 
-        this.schedulesToDisplay.getColumns().clear();
-        this.schedulesToDisplay.getColumns().add(intervalColumn);
-        this.schedulesToDisplay.getColumns().add(exTypeColumn);
-        this.schedulesToDisplay.getColumns().add(paymentStatusColumn);
-        this.schedulesToDisplay.getColumns().add(remarkColumn);
+        remarkColumn.setSortable(false);
+
+        // remove previous items (if exists) and add new objects after update
         this.schedulesToDisplay.getItems().clear();
         this.schedulesToDisplay.getItems().addAll(associatedSchedules);
 
-        /* Make remark column can wrap text
-         */
+        // Make remark column can wrap text
         remarkColumn.setCellFactory(new Callback<>() {
             @Override
             public TableCell<Schedule, Remark> call(TableColumn<Schedule, Remark> arg0) {
@@ -260,8 +265,7 @@ public class ClientInfoPage extends UiPart<AnchorPane> {
             }
         });
 
-        /* Make payment column can wrap text
-         */
+        // Make payment column in red on paid and green on not paid
         paymentStatusColumn.setCellFactory(new Callback<>() {
             @Override
             public TableCell<Schedule, PaymentStatus> call(TableColumn<Schedule, PaymentStatus> arg0) {
@@ -273,14 +277,12 @@ public class ClientInfoPage extends UiPart<AnchorPane> {
                         super.updateItem(item, isEmpty);
                         if (!isEmpty()) {
                             text = new Text(item.toString());
-                            text.wrappingWidthProperty().bind(getTableColumn().widthProperty());
                             if (item.isPaid()) {
                                 text.setStyle("-fx-stroke: green; -fx-stroke-width: 0.5; -fx-padding: 10px;");
                             } else {
                                 text.setStyle("-fx-stroke: red; -fx-stroke-width: 0.5; -fx-padding: 10px;");
                             }
                             text.setFont(Font.font("Segoe UI Light"));
-                            this.setWrapText(true);
 
                             setGraphic(text);
                         }
@@ -288,13 +290,6 @@ public class ClientInfoPage extends UiPart<AnchorPane> {
                 };
             }
         });
-
-        schedulesToDisplay.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
-        remarkColumn.setSortable(false);
-
-        this.schedulesToDisplay.setPlaceholder(new Label("No schedules to display"));
-        this.schedulesToDisplay.setPrefHeight(250);
     }
 
     @Override
