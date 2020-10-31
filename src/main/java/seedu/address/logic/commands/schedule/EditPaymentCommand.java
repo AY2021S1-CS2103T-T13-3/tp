@@ -2,10 +2,9 @@ package seedu.address.logic.commands.schedule;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.logic.parser.session.CliSyntax.PREFIX_DURATION;
-import static seedu.address.logic.parser.session.CliSyntax.PREFIX_EXERCISE_TYPE;
-import static seedu.address.logic.parser.session.CliSyntax.PREFIX_GYM;
-import static seedu.address.logic.parser.session.CliSyntax.PREFIX_START_TIME;
+import static seedu.address.logic.parser.schedule.CliSyntax.PREFIX_END_TIME;
+import static seedu.address.logic.parser.schedule.CliSyntax.PREFIX_PAYMENT_STATUS;
+import static seedu.address.logic.parser.schedule.CliSyntax.PREFIX_START_TIME;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -16,29 +15,28 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.session.AddSessionCommand;
 import seedu.address.model.Model;
 import seedu.address.model.client.Client;
 import seedu.address.model.schedule.PaymentStatus;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.session.Interval;
-import seedu.address.model.session.Session;
 import seedu.address.ui.ClientInfoPage;
 
 public class EditPaymentCommand extends Command {
     public static final String COMMAND_WORD = "payment";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Session to FitEgo. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update payment status of the schedules "
+            + "associated with the specified client and overlaps with the specified start and end time.\n"
             + "Parameters: "
-            + PREFIX_GYM + "GYM "
-            + PREFIX_EXERCISE_TYPE + "EXERCISE_TYPE "
+            + "CLIENT_INDEX (must be a positive integer)"
+            + PREFIX_PAYMENT_STATUS + "PAYMENT_STATUS (either paid or unpaid) "
             + PREFIX_START_TIME + "START_TIME "
-            + PREFIX_DURATION + "DURATION "
+            + PREFIX_END_TIME + "END_TIME "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_GYM + "Machoman "
-            + PREFIX_EXERCISE_TYPE + "Bodybuilder "
+            + "1 "
+            + PREFIX_PAYMENT_STATUS + "unpaid "
             + PREFIX_START_TIME + "29/09/2020 1600 "
-            + PREFIX_DURATION + "120 ";
+            + PREFIX_END_TIME + "11/10/2020 1700";
 
     public static final String MESSAGE_SUCCESS = "The payment status of the scheduled contained in the interval"
             + " (if any) is updated!";
@@ -70,7 +68,7 @@ public class EditPaymentCommand extends Command {
         Client clientToEdit = lastShownClientList.get(clientIndex.getZeroBased());
 
         for (Schedule schedule : model.getAddressBook().getScheduleList()) {
-            if (Interval.isOverlap(interval, schedule.getInterval())) {
+            if (schedule.getClient().equals(clientToEdit) && Interval.isOverlap(interval, schedule.getInterval())) {
                 model.setSchedule(schedule, schedule.setPaymentStatus(paymentStatus));
             }
         }

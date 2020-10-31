@@ -13,10 +13,13 @@ import java.time.format.DateTimeFormatter;
 public class Interval {
     private static final String DATE_TIME_PATTERN = "dd/MM/uuuu HHmm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
-    public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Start time must be a valid date and time and follows "
+    public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "(start or end) time must be a valid date and time and follows "
             + DATE_TIME_PATTERN + " pattern";
     public static final String MESSAGE_CONSTRAINTS = "Intervals can start at any time, "
             + "but duration must be a positive integer and " + MESSAGE_DATE_TIME_CONSTRAINTS;
+    public static final String MESSAGE_END_TIME_CONSTRAINTS = "Intervals can start at any time, "
+            + "but the end time must be before the start time. Both start and end time must follow "
+            + DATE_TIME_PATTERN + "pattern";
     private static final String SIMPLE_DATE_TIME_PATTERN = "EE dd MMM";
     public static final DateTimeFormatter SIMPLE_DATE_TIME_PATTERN_FORMATTER = DateTimeFormatter.ofPattern(
             SIMPLE_DATE_TIME_PATTERN);
