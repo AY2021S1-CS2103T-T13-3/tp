@@ -13,4 +13,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_UPDATED_SESSION_INDEX = new Prefix("us/");
     public static final Prefix PREFIX_REMARK = new Prefix("r/");
     public static final Prefix PREFIX_WEIGHT = new Prefix("w/");
+    public static final Prefix PREFIX_START_TIME = new Prefix("fr/");
+    public static final Prefix PREFIX_END_TIME = new Prefix("to/");
 }
