@@ -8,7 +8,9 @@ import static seedu.address.logic.parser.session.CliSyntax.PREFIX_GYM;
 import static seedu.address.logic.parser.session.CliSyntax.PREFIX_START_TIME;
 
 import java.util.List;
+import java.util.function.Supplier;
 
+import javafx.scene.layout.AnchorPane;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
@@ -21,6 +23,7 @@ import seedu.address.model.schedule.PaymentStatus;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.session.Interval;
 import seedu.address.model.session.Session;
+import seedu.address.ui.ClientInfoPage;
 
 public class EditPaymentCommand extends Command {
     public static final String COMMAND_WORD = "payment";
@@ -37,8 +40,8 @@ public class EditPaymentCommand extends Command {
             + PREFIX_START_TIME + "29/09/2020 1600 "
             + PREFIX_DURATION + "120 ";
 
-    public static final String MESSAGE_SUCCESS = "New Session added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SESSION = "This Session overlaps with an existing Session in FitEgo";
+    public static final String MESSAGE_SUCCESS = "The payment status of the scheduled contained in the interval"
+            + " (if any) is updated!";
 
     private final Index clientIndex;
     private final PaymentStatus paymentStatus;
@@ -67,36 +70,28 @@ public class EditPaymentCommand extends Command {
         Client clientToEdit = lastShownClientList.get(clientIndex.getZeroBased());
 
         for (Schedule schedule : model.getAddressBook().getScheduleList()) {
-            if schedule.getInterval().
+            if (Interval.isOverlap(interval, schedule.getInterval())) {
+                model.setSchedule(schedule, schedule.setPaymentStatus(paymentStatus));
+            }
         }
 
-        Session sessionToSchedule = lastShownSessionList.get(sessionIndex.getZeroBased());
+        List<Schedule> scheduleByClient = model.findScheduleByClient(clientToEdit);
 
-        if (model.hasAnyScheduleAssociatedWithClientAndSession(clientToSchedule, sessionToSchedule)) {
-            throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
-        }
+        Supplier<AnchorPane> mainWindowSupplier = () -> {
+            ClientInfoPage cip = ClientInfoPage.getClientInfoPage(clientToEdit, scheduleByClient,
+                    model.getPreferredWeightUnit());
+            return cip.getRoot();
+        };
 
-        Schedule scheduleToAdd = new Schedule(clientToSchedule, sessionToSchedule);
-        model.addSchedule(scheduleToAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, scheduleToAdd));
-    }
-
-    public static boolean isOverlappingSession(Interval interval1, Interval interval2) {
-        if (interval1.getStartTime().isAfter(getStartTime())) {
-            // other session start time is > this session start time
-            // this session: 2 - 4pm, other session: 4 - 6pm -> do not overlap
-            // this session: 2 - 4.01pm, other session: 4 - 6pm -> overlap
-            return getEndTime().isAfter(otherSession.getStartTime());
-        } else {
-            // other session start time is <= this session start time
-            return otherSession.getEndTime().isAfter(getStartTime());
-        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS), mainWindowSupplier);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddSessionCommand // instanceof handles nulls
-                && toAdd.equals(((AddSessionCommand) other).toAdd));
+                || (other instanceof EditPaymentCommand // instanceof handles nulls
+                && clientIndex.equals(((EditPaymentCommand) other).clientIndex)
+                && paymentStatus.equals(((EditPaymentCommand) other).paymentStatus)
+                && interval.equals(((EditPaymentCommand) other).interval));
     }
 }

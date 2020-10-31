@@ -81,6 +81,10 @@ public class Schedule implements CheckExisting<Schedule>, Comparable<Schedule> {
         return new Schedule(this.client, newSession, this.paymentStatus, this.remark, this.weight);
     }
 
+    public Schedule setPaymentStatus(PaymentStatus newPaymentStatus) {
+        return new Schedule(this.client, this.session, newPaymentStatus, this.remark, this.weight);
+    }
+
     /**
      * Returns true if both Schedules have the same identity.
      */
