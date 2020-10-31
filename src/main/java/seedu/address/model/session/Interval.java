@@ -11,20 +11,17 @@ import java.time.format.DateTimeFormatter;
  * Guarantees: immutable; is valid as declared in {@link #isValidInterval(int)}
  */
 public class Interval {
-    private static final String DATE_TIME_PATTERN = "dd/MM/yyyy HHmm";
-    private static final String SIMPLE_DATE_TIME_PATTERN = "EE dd MMM";
-    private static final String TIME_12HR_PATTERN = "hh:mm a";
-
+    private static final String DATE_TIME_PATTERN = "dd/MM/uuuu HHmm";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_PATTERN);
-    public static final DateTimeFormatter SIMPLE_DATE_TIME_PATTERN_FORMATTER = DateTimeFormatter.ofPattern(
-            SIMPLE_DATE_TIME_PATTERN);
-    public static final DateTimeFormatter TIME_12HR_PATTERN_FORMATTER = DateTimeFormatter.ofPattern(TIME_12HR_PATTERN);
-
-    public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Start time must be a valid datetime and follow "
+    public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Start time must be a valid date and time and follows "
             + DATE_TIME_PATTERN + " pattern";
     public static final String MESSAGE_CONSTRAINTS = "Intervals can start at any time, "
             + "but duration must be a positive integer and " + MESSAGE_DATE_TIME_CONSTRAINTS;
-
+    private static final String SIMPLE_DATE_TIME_PATTERN = "EE dd MMM";
+    public static final DateTimeFormatter SIMPLE_DATE_TIME_PATTERN_FORMATTER = DateTimeFormatter.ofPattern(
+            SIMPLE_DATE_TIME_PATTERN);
+    private static final String TIME_12HR_PATTERN = "hh:mm a";
+    public static final DateTimeFormatter TIME_12HR_PATTERN_FORMATTER = DateTimeFormatter.ofPattern(TIME_12HR_PATTERN);
     private final LocalDateTime start;
     private final int durationInMinutes;
 
@@ -46,6 +43,17 @@ public class Interval {
      */
     public static boolean isValidInterval(int duration) {
         return duration > 0;
+    }
+
+    /**
+     * Checks whether the two intervals overlaps with each other (exclusive of start and end time)
+     *
+     * @param first  the first of the 2 intervals to be tested
+     * @param second the second of the 2 intervals to be tested
+     * @return true if both interval overlaps with each other
+     */
+    public static boolean isOverlap(Interval first, Interval second) {
+        return first.getStart().isBefore(second.getEnd()) && second.getStart().isBefore(first.getEnd());
     }
 
     public LocalDateTime getStart() {

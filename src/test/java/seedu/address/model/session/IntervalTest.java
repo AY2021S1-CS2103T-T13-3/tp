@@ -52,6 +52,40 @@ public class IntervalTest {
     }
 
     @Test
+    public void isOverlap() {
+        LocalDateTime earlierTime = LocalDateTime.of(2020, 9, 20, 16, 0);
+        LocalDateTime laterTime = LocalDateTime.of(2020, 9, 20, 17, 0);
+
+        // A ---------- A
+        //    B --- B
+        assertTrue(Interval.isOverlap(new Interval(earlierTime, 120), new Interval(laterTime, 45)));
+        assertTrue(Interval.isOverlap(new Interval(laterTime, 45), new Interval(earlierTime, 120)));
+
+        // A ---------- A
+        // B --- B
+        assertTrue(Interval.isOverlap(new Interval(earlierTime, 59), new Interval(earlierTime, 40)));
+        assertTrue(Interval.isOverlap(new Interval(earlierTime, 59), new Interval(earlierTime, 60)));
+
+        // A ---------- A
+        //      B ----- B
+        assertTrue(Interval.isOverlap(new Interval(earlierTime, 120), new Interval(laterTime, 60)));
+        assertTrue(Interval.isOverlap(new Interval(laterTime, 60), new Interval(earlierTime, 120)));
+
+        // A --------- A
+        //      B --------- B
+        assertTrue(Interval.isOverlap(new Interval(earlierTime, 61), new Interval(laterTime, 100)));
+        assertTrue(Interval.isOverlap(new Interval(laterTime, 100), new Interval(earlierTime, 61)));
+
+        // A --------- A
+        //             B ---------- B
+        assertFalse(Interval.isOverlap(new Interval(earlierTime, 60), new Interval(laterTime, 120)));
+
+        // A --------- A
+        //                B ---------- B
+        assertFalse(Interval.isOverlap(new Interval(earlierTime, 59), new Interval(laterTime, 120)));
+    }
+
+    @Test
     public void hashcode() {
         // same values -> returns same hashcode
         assertEquals(new Interval(validStartTime_1, 60).hashCode(),

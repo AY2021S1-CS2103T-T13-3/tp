@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,7 +30,7 @@ public class SessionParserUtil extends ParserUtil {
         if (!Gym.isValidGym(trimmedGym)) {
             throw new ParseException(Gym.MESSAGE_CONSTRAINTS);
         }
-        return new Gym(gym);
+        return new Gym(trimmedGym);
     }
 
     /**
@@ -57,6 +58,9 @@ public class SessionParserUtil extends ParserUtil {
         if (isInvalidDateTime(startTime)) {
             throw new ParseException(Interval.MESSAGE_DATE_TIME_CONSTRAINTS);
         }
+
+        // trim white spaces from duration
+        duration = duration.trim();
 
         if (!isInteger(duration)) {
             throw new ParseException(Interval.MESSAGE_CONSTRAINTS);
@@ -114,7 +118,8 @@ public class SessionParserUtil extends ParserUtil {
      */
     public static LocalDateTime parseStringToDateTime(String input) throws ParseException {
         try {
-            return LocalDateTime.parse(input, Interval.DATE_TIME_FORMATTER);
+            return LocalDateTime.parse(input.trim(),
+                    Interval.DATE_TIME_FORMATTER.withResolverStyle(ResolverStyle.STRICT));
         } catch (DateTimeParseException e) {
             throw new ParseException(Interval.MESSAGE_DATE_TIME_CONSTRAINTS);
         }
@@ -128,9 +133,9 @@ public class SessionParserUtil extends ParserUtil {
      */
     public static boolean isInvalidDateTime(String input) {
         try {
-            LocalDateTime.parse(input, Interval.DATE_TIME_FORMATTER);
+            parseStringToDateTime(input);
             return false;
-        } catch (DateTimeParseException e) {
+        } catch (ParseException e) {
             return true;
         }
     }

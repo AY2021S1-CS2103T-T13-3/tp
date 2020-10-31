@@ -31,7 +31,7 @@ public class AddSessionCommand extends Command {
             + PREFIX_DURATION + "120 ";
 
     public static final String MESSAGE_SUCCESS = "New Session added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SESSION = "This Session overlaps with an existing Session in FitEgo";
+    public static final String MESSAGE_DUPLICATE_SESSION = "This Session already exists in FitEgo.";
 
     private final Session toAdd;
 

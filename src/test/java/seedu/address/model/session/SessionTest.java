@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.session.SessionCommandTestUtil.VALID_DURATION_MACHOMAN;
 import static seedu.address.logic.commands.session.SessionCommandTestUtil.VALID_EXERCISE_TYPE_MACHOMAN;
 import static seedu.address.logic.commands.session.SessionCommandTestUtil.VALID_GYM_MACHOMAN;
+import static seedu.address.logic.commands.session.SessionCommandTestUtil.VALID_START_TIME_GETWELL;
 import static seedu.address.logic.commands.session.SessionCommandTestUtil.VALID_START_TIME_MACHOMAN;
 import static seedu.address.testutil.TypicalSessions.GETWELL;
 import static seedu.address.testutil.TypicalSessions.MACHOMAN;
@@ -35,6 +36,11 @@ public class SessionTest {
         editedGetwell = new SessionBuilder(GETWELL)
                 .withInterval(VALID_START_TIME_MACHOMAN, VALID_DURATION_MACHOMAN).build();
         assertFalse(GETWELL.isIdentical(editedGetwell));
+
+        //overlapping intervals
+        editedGetwell = new SessionBuilder(GETWELL)
+                .withInterval(VALID_START_TIME_GETWELL, VALID_DURATION_MACHOMAN).build();
+        assertTrue(GETWELL.isIdentical(editedGetwell));
     }
 
     @Test
