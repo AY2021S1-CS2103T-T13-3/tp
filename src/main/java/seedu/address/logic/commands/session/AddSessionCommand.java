@@ -18,7 +18,7 @@ import seedu.address.model.session.Session;
 public class AddSessionCommand extends Command {
     public static final String COMMAND_WORD = "sadd";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Session to FitEgo. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a session to FitEgo. "
             + "Parameters: "
             + PREFIX_GYM + "GYM "
             + PREFIX_EXERCISE_TYPE + "EXERCISE_TYPE "
@@ -30,9 +30,9 @@ public class AddSessionCommand extends Command {
             + PREFIX_START_TIME + "29/09/2020 1600 "
             + PREFIX_DURATION + "120 ";
 
-    public static final String MESSAGE_SUCCESS = "New Session added: %1$s";
-    public static final String MESSAGE_DUPLICATE_SESSION = "This Session overlaps with an existing Session in FitEgo.\n"
-            + "A Session is considered overlapping if another Session starts before the current Session ends.";
+    public static final String MESSAGE_SUCCESS = "New session added: %1$s";
+    public static final String MESSAGE_DUPLICATE_SESSION = "This session overlaps with an existing session in FitEgo.\n"
+            + "A session is considered overlapping if it starts before the previous session ends.";
 
     private final Session toAdd;
 

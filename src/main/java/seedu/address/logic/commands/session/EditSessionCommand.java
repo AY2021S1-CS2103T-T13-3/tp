@@ -25,8 +25,8 @@ public class EditSessionCommand extends Command {
 
     public static final String COMMAND_WORD = "sedit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Session identified "
-            + "by the index number used in the displayed Session list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the session identified "
+            + "by the index number used in the displayed Session List.\n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_GYM + "GYM] "
@@ -38,10 +38,10 @@ public class EditSessionCommand extends Command {
             + PREFIX_START_TIME + "29/09/2020 1600 "
             + PREFIX_DURATION + "120 ";
 
-    public static final String MESSAGE_EDIT_SESSION_SUCCESS = "Edited Session: %1$s";
+    public static final String MESSAGE_EDIT_SESSION_SUCCESS = "Edited session: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_SESSION = "This Session already exists in FitEgo.";
-    public static final String MESSAGE_OVERLAPPING_SESSION = "This Session overlaps with another "
+    public static final String MESSAGE_DUPLICATE_SESSION = "This session already exists in FitEgo.";
+    public static final String MESSAGE_OVERLAPPING_SESSION = "This session overlaps with another "
             + "session in the FitEgo.";
 
     private final Index index;
