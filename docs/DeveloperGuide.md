@@ -246,18 +246,19 @@ In designing this feature, we had to consider several alternative ways in which 
 
 ### Add Schedule feature
 
-The add schedule feature allows user to create a Schedule associated with a Client and a Session. 
-In other words, it allows user to schedule a Client to a Session.
+The add schedule feature allows user to create a schedule associated with a client and a session. 
+In other words, it allows user to schedule a client to a session.
 
 #### Implementation
 
-The add Schedule mechanism is facilitated by `AddScheduleCommand` which extends `Command`. The format of the 
+The add schedule mechanism is facilitated by `AddScheduleCommand` which extends `Command`. The format of the 
 command is given by: 
 
 ```schadd c/CLIENT_INDEX s/SESSION_INDEX```
-When using this command, the `CLIENT_INDEX` should refer to the index shown in the Client List on the left panel, and is used to specify the Client. The `SESSION_INDEX` should refer to the index shown in the Session List on the right panel, and is used to specify the Session.
+When using this command, the `CLIENT_INDEX` should refer to the index shown in the Client List on the left panel, and is used to specify the client. The `SESSION_INDEX` should refer to the index shown in the Session List on the right panel, and is used to specify the session.
 
-The following activity diagram summarizes what happens when a user executes a new `AddSchedule` command. Notice how it checks for overlapping Schedule first.
+The following activity diagram summarizes the decision making process when a user executes a new `AddSchedule` command. Notice how it checks for overlapping schedule first.
+
 ![AddScheduleActivityDiagram](images/AddScheduleActivityDiagram.png)
 
 **Example Commands**
@@ -266,21 +267,19 @@ Assume the current state of Client, Session, and Schedule is as illustrated on t
 
 ![OverlappingScheduleObjectDiagram0](images/OverlappingScheduleObjectDiagram0.png)
 
-Now, consider two cases of a Schedule Command to be invoked.
+Now, consider two cases of add schedule command to be invoked.
 
 **Case 1**:  `schadd c/2 s/1`
 
-Invoking `schadd c/2 s/1` will add a Schedule associated with Andy (the second Client in the Client List) and endurance training from 12/12/2020 1400 - 1600 (the first Session in the Session List). This process can be traced by referring to the following simplified sequence diagram:
+Invoking `schadd c/2 s/1` will add a schedule associated with Andy (the second client in the Client List) and endurance training from 12/12/2020 1400 - 1600 (the first session in the Session List).
 
-  ![AddScheduleSequenceDiagram](images/AddScheduleSequenceDiagram.png)
-
-Thus, the result can be illustrated by the following object diagram, shown by a new created Schedule:
+Thus, the result can be illustrated by the following object diagram, shown by a new created schedule:
 
 ![OverlappingScheduleObjectDiagram1](images/OverlappingScheduleObjectDiagram1.png)
 
 **Case 2:** `schadd c/1 s/1`
 
-On the other hand, invoking `schadd c/1 s/1` will result in an error shown to the user as there is an overlapping Schedule (John is already scheduled to endurance training from 12/12/2020 1400 - 1600).
+On the other hand, invoking `schadd c/1 s/1` will result in an error shown to the user as there is an overlapping schedule (John is already scheduled to endurance training from 12/12/2020 1400 - 1600).
 
 ### \[Proposed\] Undo/redo feature
 

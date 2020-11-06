@@ -320,7 +320,7 @@ You can add a client to the Client List including their details. This allows you
 
 Format: `cadd n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]`
 
-Points to take note when editing a client's information:
+Points to take note when adding a client's information:
 * Email is unique for each client. This means you cannot add a new client if the email specified is already used by another client.
 
 <div markdown="span" class="alert alert-primary">:bulb: **Tip:**
@@ -333,14 +333,14 @@ a tag with a dash.
 
 :star: **Feature:**
 
-You can add profile picture to your client by storing their photo in `data/images` folder. You should name the photo 
+You can add a profile picture to your client by storing their photo in a new folder named `images` within the `data` folder. You should name the photo 
 as `profile-<client's full name in lowercase and separated by dash>.jpg`. <br/> For example, if your client's name is Alex Yeoh, 
 store his photo as `data/images/profile-alex-yeoh.jpg`
 </div>
 
 Examples:
-* `cadd n/Jane Doe p/91234567 e/jane@gmail.com a/12 Marina Boulevard`
-* `cadd n/John Doe p/91231367 e/jojo@gmail.com a/13 Marina Boulevard t/injured-thigh`
+* `cadd n/Jane Doe p/91234567 e/jane@gmail.com a/311, Clementi Ave 2, #02-25`
+* `cadd n/John Doe p/91231367 e/jojo@gmail.com a/311, Clementi Ave 2, #02-25 t/injured-thigh`
 
 ### 3.2.3 Editing a Client : `cedit`
 
@@ -358,8 +358,12 @@ Points to take note when editing a client's information:
 * After performing a `cedit` command, you will see the updated client information page.
 
 Examples:
-*  `cedit 1 n/Janie Doe` Edits the name of the first client to be `Janie Doe`
-*  `cedit 1 t/` Removes all of the tags of the first client
+
+*  `cedit 1 t/` removes all of the tags of the first client in the Client List
+*  `cedit 2 p/12345678 t/injured-thigh` edits the phone number and tag of the second client in the Client List. As you can see in the figure below, both fields are updated after executing the command.
+ <center> <img src="images/cedit_sample.png" alt="cedit command sample"/><br>
+ Figure 11 - Result of executing <code>cedit 2 p/12345678 t/injured-thigh</code></center><br/>
+
 
 ### 3.2.4 Locating Clients by Name : `cfind`
 
@@ -377,7 +381,7 @@ Points to take note when finding clients by name:
 
 Examples:
 * `cfind John` returns `john` and `John Doe`
-* `cfind alex david` returns `Alex Yeoh`, `David Li` as shown in the image below <br>
+* `cfind alex david` returns `Alex Yeoh`, `David Li` as shown in the figure below <br>
 
 <center><img src="images/findAlexDavidResult.png" alt="result for 'find alex david'" width="400" height="400" /></center>
 <center> Figure 7 - Result of finding clients by name </center>
@@ -506,7 +510,7 @@ This helps to prevent you from accidentally agreeing to 2 sessions that overlaps
 </figure>
 
 Examples:
-* `sadd g/New Gym ex/Endurance at/06/11/2020 0900 t/65` - Adds a session at gym `New Gym` with exercise type `Endurance` at `06/11/2020 0900hrs` that lasts for `65` minutes
+* `sadd g/New Gym ex/Endurance at/06/11/2020 0900 t/65` adds a session at gym `New Gym` with exercise type `Endurance` at `06/11/2020 0900hrs` that lasts for `65` minutes
 
 
 ### 3.3.2 Editing a Session : `sedit`
@@ -523,8 +527,8 @@ Points to take note when editing a session's details from the Session List:
 * Existing values will be updated to the input values.
 
 Examples:
-*  `sedit 1 g/Machoman at/29/09/2020 1600 t/120 ` - Edits the gym of the first session to be `Machoman` and the start time and duration to be `29/09/2020 1600 with a duration of 120 minutes` while keeping all other fields the same
-*  `sedit 2 at/29/09/2020 1600 t/120 ` - Edits the start time and duration of the second session to be `29/09/2020 1600 with a duration of 120 minutes` while keeping all other fields the same
+*  `sedit 1 g/Machoman at/29/09/2020 1600 t/120 ` edits the gym of the first session to be `Machoman` and the start time and duration to be `29/09/2020 1600 with a duration of 120 minutes` while keeping all other fields the same
+*  `sedit 2 at/29/09/2020 1600 t/120 ` edits the start time and duration of the second session to be `29/09/2020 1600 with a duration of 120 minutes` while keeping all other fields the same
 
 
 ### 3.3.3 Deleting a Session : `sdel`
@@ -592,10 +596,10 @@ Figure 10 - Result of running <code>sview p/+2w</code> </center>
 
 Examples:
  
-* `sview p/all` - Display all sessions stored in FitEgo
-* `sview p/+0D` - Display all sessions today
-* `sview p/-1d` - Display all sessions from the past 1 day to today (yesterday and today)
-* `sview p/+2w` - Display all sessions from today to 2 weeks later. (e.g. If today is Friday, display from today to the Friday that falls 2 weeks later)
+* `sview p/all` displays all sessions stored in FitEgo
+* `sview p/+0D` displays all sessions today
+* `sview p/-1d` displays all sessions from the past 1 day to today (yesterday and today)
+* `sview p/+2w` displays all sessions from today to 2 weeks later. (e.g. If today is Friday, display from today to the Friday that falls 2 weeks later)
 
 <div markdown="block" class="alert alert-info"> 
 
@@ -660,7 +664,9 @@ Points to take note when adding a schedule:
 
 Example:
 
-* `schadd c/1 s/1` - Schedules the first client in the Client List with the first session in the Session List
+* `schadd c/1 s/1` schedules the first client in the Client List with the first session in the Session List. As you can see in the figure below, Alex Yeoh (the fifth client, marked by the red square) is added to the first session in the list (marked by the blue square).
+ <center> <img src="images/schadd_sample.png" alt="schadd command sample"/><br>
+ Figure 11 - Result of executing <code>schadd c/1 s/1</code></center><br/>
 
 ### 3.4.2 Editing a Schedule : `schedit`
 
@@ -680,11 +686,11 @@ Points to take note when editing a schedule's details:
 
 Examples:
 
-*  `schedit c/1 s/1 us/2` - Reschedules the first client in the Client List to the second session in the Session List while keeping all other fields the same
-*  `schedit c/1 s/1 pd/paid` - Indicates that the first client in the Client List has paid for the second session in the Session List while keeping all other fields the same
-*  `schedit c/1 s/1 r/did 5 pushups` - Edits the schedule containing client index 1 and session index 1 to have remark of doing 5 pushups while keeping all other fields the same
-*  `schedit c/1 s/1 w/70` - Edits the schedule containing client index 1 and session index 1 to a weight of 70kg while keeping all other fields the same
-* `schedit c/1 s/1 r/` - Clears the schedule containing client index 1 and session index 1 remarks while keeping all other fields the same
+*  `schedit c/1 s/1 us/2` reschedules the first session in the Session List to the second session in the Session List while keeping all other fields the same
+*  `schedit c/1 s/1 pd/paid` indicates that the first client in the Client List has paid for the second session in the Session List while keeping all other fields the same
+*  `schedit c/1 s/1 r/did 5 pushups` edits the schedule containing client index 1 and session index 1 to have remark of doing 5 pushups while keeping all other fields the same
+*  `schedit c/1 s/1 w/70` edits the schedule containing client index 1 and session index 1 to a weight of 70kg while keeping all other fields the same
+* `schedit c/1 s/1 r/` clears the schedule containing client index 1 and session index 1 remarks while keeping all other fields the same
 
 ### 3.4.3 Deleting a Schedule : `schdel`
 
@@ -700,7 +706,7 @@ Some points to take note when deleting a schedule:
 
 Examples:
 
-* `schdel c/1 s/1` - Deletes the schedule associated with the first client in the Client List and first session in the Session List
+* `schdel c/1 s/1` deletes the schedule associated with the first client in the Client List and first session in the Session List
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -710,8 +716,13 @@ Examples:
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous FitEgo home folder.
 
 **Q**: I would like to contribute to this project. May I know who do I reach out to?  
-**A**: You may reach our PR Department email [here](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
+**A**: To get in touch with us, you may post an issue [here](https://github.com/AY2021S1-CS2103T-T13-3/tp/issues/new), and we will get back to you as soon as possible.
 
+**Q**: Am I able to mark multiple schedules as paid or unpaid with one command?  
+**A**: Currently, you are only able to mark only one schedule as paid or unpaid per command. This is a feature we are aiming to implement in the future.
+
+**Q**: Is my data backed up to the internet?  
+**A**: No, your data in FitEgo are saved in the hard disk. You will have to transfer the file, which contains your data, to whichever device you wish to continue using FitEgo on.
 
 --------------------------------------------------------------------------------------------------------------------
 

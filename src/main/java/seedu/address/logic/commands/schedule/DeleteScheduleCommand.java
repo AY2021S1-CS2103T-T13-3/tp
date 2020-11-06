@@ -17,6 +17,9 @@ import seedu.address.model.client.Client;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.session.Session;
 
+/**
+ * Deletes a Schedule identified using associated with the specified Client and Session from the address book.
+ */
 public class DeleteScheduleCommand extends Command {
     public static final String COMMAND_WORD = "schdel";
 
@@ -37,7 +40,7 @@ public class DeleteScheduleCommand extends Command {
     private final Index sessionIndex;
 
     /**
-     * Creates an DeleteScheduleCommand to delete the specified {@code Schedule}
+     * Creates an DeleteScheduleCommand to delete the specified {@code Schedule}.
      */
     public DeleteScheduleCommand(Index clientIndex, Index sessionIndex) {
         requireAllNonNull(clientIndex, sessionIndex);
@@ -50,6 +53,7 @@ public class DeleteScheduleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // Get the Client and Session from the filtered list
         List<Client> lastShownClientList = model.getFilteredClientList();
 
         if (clientIndex.getZeroBased() >= lastShownClientList.size()) {
@@ -66,6 +70,7 @@ public class DeleteScheduleCommand extends Command {
 
         Session session = lastShownSessionList.get(sessionIndex.getZeroBased());
 
+        // Delete the Schedule associated with the Client and Session if found in address book
         if (model.hasAnyScheduleAssociatedWithClientAndSession(client, session)) {
             Schedule scheduleToDelete = model.findScheduleByClientAndSession(client, session);
             model.deleteSchedule(scheduleToDelete);

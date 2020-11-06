@@ -18,7 +18,7 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.model.session.Session;
 
 /**
- * Adds a schedule
+ * Adds a Schedule to the address book.
  */
 public class AddScheduleCommand extends Command {
     public static final String COMMAND_WORD = "schadd";
@@ -31,14 +31,15 @@ public class AddScheduleCommand extends Command {
             + PREFIX_CLIENT_INDEX + "1 "
             + PREFIX_SESSION_INDEX + "1 ";
 
-    public static final String MESSAGE_SUCCESS = "New Schedule added: \n%1$s";
-    public static final String MESSAGE_DUPLICATE_SCHEDULE = "The Schedule already exists in FitEgo";
+    public static final String MESSAGE_SUCCESS = "New schedule added: \n%1$s";
+    public static final String MESSAGE_DUPLICATE_SCHEDULE = "The schedule already exists in FitEgo";
 
     private final Index clientIndex;
     private final Index sessionIndex;
 
     /**
-     * Creates an AddScheduleCommand to add the specified {@code Schedule}
+     * Creates an AddScheduleCommand to add the specified {@code Schedule} based on the
+     * {@code clientIndex} and {@code sessionIndex}.
      */
     public AddScheduleCommand(Index clientIndex, Index sessionIndex) {
         requireAllNonNull(clientIndex, sessionIndex);
@@ -51,6 +52,7 @@ public class AddScheduleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        // Get the Client and Session from the filtered list
         List<Client> lastShownClientList = model.getFilteredClientList();
 
         if (clientIndex.getZeroBased() >= lastShownClientList.size()) {
@@ -67,6 +69,7 @@ public class AddScheduleCommand extends Command {
 
         Session sessionToSchedule = lastShownSessionList.get(sessionIndex.getZeroBased());
 
+        // Add Schedule associated with the Client and Session if currently no identical Schedule exist
         if (model.hasAnyScheduleAssociatedWithClientAndSession(clientToSchedule, sessionToSchedule)) {
             throw new CommandException(MESSAGE_DUPLICATE_SCHEDULE);
         }

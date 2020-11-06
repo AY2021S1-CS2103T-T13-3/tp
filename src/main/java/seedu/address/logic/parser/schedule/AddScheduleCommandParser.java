@@ -16,7 +16,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddScheduleCommand object
+ * Parses input arguments and creates a new AddScheduleCommand object.
  */
 public class AddScheduleCommandParser implements Parser<AddScheduleCommand> {
 
@@ -32,7 +32,7 @@ public class AddScheduleCommandParser implements Parser<AddScheduleCommand> {
      * Parses the given {@code String} of arguments in the context of the AddScheduleCommand
      * and returns an AddScheduleCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public AddScheduleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =

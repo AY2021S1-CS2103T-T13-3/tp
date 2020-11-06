@@ -16,7 +16,7 @@ import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddScheduleCommand object
+ * Parses input arguments and creates a new DeleteScheduleCommand object.
  */
 public class DeleteScheduleCommandParser implements Parser<DeleteScheduleCommand> {
 

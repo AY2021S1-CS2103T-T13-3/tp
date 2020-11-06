@@ -39,8 +39,8 @@ public class EditClientCommand extends Command {
 
     public static final String COMMAND_WORD = "cedit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the Client identified "
-            + "by the index number used in the displayed Client list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the client identified "
+            + "by the index number used in the displayed Client List. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
@@ -52,7 +52,7 @@ public class EditClientCommand extends Command {
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
-    public static final String MESSAGE_EDIT_CLIENT_SUCCESS = "Edited Client: %1$s";
+    public static final String MESSAGE_EDIT_CLIENT_SUCCESS = "Edited client: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CLIENT = "A client with the same email already exists in FitEgo.";
 
@@ -60,8 +60,8 @@ public class EditClientCommand extends Command {
     private final EditClientDescriptor editClientDescriptor;
 
     /**
-     * @param index of the Client in the filtered Client list to edit
-     * @param editClientDescriptor details to edit the Client with
+     * @param index of the Client in the filtered Client List to edit.
+     * @param editClientDescriptor details to edit the Client with.
      */
     public EditClientCommand(Index index, EditClientDescriptor editClientDescriptor) {
         requireNonNull(index);
@@ -83,18 +83,21 @@ public class EditClientCommand extends Command {
         Client clientToEdit = lastShownList.get(index.getZeroBased());
         Client editedClient = createEditedClient(clientToEdit, editClientDescriptor);
 
+        // Edit the Client if currently no identical Client exist
         if (!clientToEdit.isIdentical(editedClient) && model.hasClient(editedClient)) {
             throw new CommandException(MESSAGE_DUPLICATE_CLIENT);
         }
 
         model.setClient(clientToEdit, editedClient);
 
+        // Update the Schedules associated with clientToEdit
         if (model.hasAnyScheduleAssociatedWithClient(clientToEdit)) {
             model.editSchedulesAssociatedWithClient(clientToEdit, editedClient);
         }
 
         model.updateFilteredClientList(PREDICATE_SHOW_ALL_CLIENTS);
 
+        // Set the main window to be the edited client's detail view
         List<Schedule> scheduleByClient = model.findScheduleByClient(editedClient);
 
         Supplier<AnchorPane> mainWindowSupplier = () -> {
