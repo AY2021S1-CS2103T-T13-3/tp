@@ -498,8 +498,15 @@ This helps to prevent you from accidentally agreeing to 2 sessions that overlaps
 
 </div>
 
+<figure style="width:auto; text-align:center; padding:0.5em; font-style: italic; font-size: smaller;">
+    <p>
+        <img src="images/sadd_sample.png" style="width: 75%; height: auto;"/>
+    </p>
+    <figcaption>Figure - Result of executing <code>sadd g/New Gym ex/Endurance at/06/11/2020 0900 t/65</code></figcaption>
+</figure>
+
 Examples:
-* `sadd g/Machoman Gym ex/Endurance at/29/09/2020 1600 t/120` - Adds a session at gym `Machoman` with exercise type `Endurance` at `29/09/2020 1600hrs` that lasts for `120` minutes
+* `sadd g/New Gym ex/Endurance at/06/11/2020 0900 t/65` - Adds a session at gym `New Gym` with exercise type `Endurance` at `06/11/2020 0900hrs` that lasts for `65` minutes
 
 
 ### 3.3.2 Editing a Session : `sedit`
