@@ -115,7 +115,7 @@ public class AddSessionCommandParserTest {
         // invalid duration
         assertParseFailure(parser, GYM_DESC_MACHOMAN + EXERCISE_TYPE_DESC_MACHOMAN
                         + START_TIME_DESC_MACHOMAN + INVALID_DURATION_DESC,
-                Interval.MESSAGE_CONSTRAINTS);
+                Interval.MESSAGE_DURATION_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_GYM_DESC + EXERCISE_TYPE_DESC_MACHOMAN

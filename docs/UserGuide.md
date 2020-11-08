@@ -525,7 +525,6 @@ of session view using [<code>sview</code>](#334-viewing-sessions-within-period--
  
 </div>
 
-
 ### 3.3.1 Adding a Session : `sadd`
 
 You can create a session with its relevant details. If the new session is within the [viewing period](#334-viewing-sessions-within-period--sview) of the Session List, the addition will be reflected in the Session List.

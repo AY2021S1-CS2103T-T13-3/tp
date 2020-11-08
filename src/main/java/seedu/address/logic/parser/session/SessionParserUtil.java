@@ -76,7 +76,7 @@ public class SessionParserUtil extends ParserUtil {
         int dur = Integer.parseInt(duration);
 
         if (!Interval.isValidInterval(dur)) {
-            throw new ParseException(Interval.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Interval.MESSAGE_DURATION_CONSTRAINTS);
         }
         return new Interval(start, dur);
     }
@@ -105,7 +105,7 @@ public class SessionParserUtil extends ParserUtil {
         int duration = (int) Duration.between(start, end).toMinutes();
 
         if (!Interval.isValidInterval(duration)) {
-            throw new ParseException(Interval.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Interval.MESSAGE_END_AFTER_START_CONSTRAINTS);
         }
 
         return new Interval(start, duration);
