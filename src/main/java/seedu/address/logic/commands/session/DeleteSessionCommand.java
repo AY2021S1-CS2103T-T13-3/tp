@@ -21,7 +21,7 @@ public class DeleteSessionCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the session identified by the index number used in the displayed Session List.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a positive integer) [f/]\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_SESSION_SUCCESS = "Deleted session: %1$s";
@@ -29,7 +29,7 @@ public class DeleteSessionCommand extends Command {
     public static final String MESSAGE_FORCE_DELETE_SESSION_USAGE = COMMAND_WORD
             + ": Cannot delete the session identified by the index number because there are schedules associated to it."
             + "\nTo force delete, pass in f/ as an option. BEWARE, YOU WILL LOSE ALL RELATED SCHEDULES."
-            + "\nParameters: INDEX (must be a positive integer) f/"
+            + "\nParameters: INDEX (must be a positive integer) [f/]"
             + "\nExample: " + COMMAND_WORD + " 1 f/";
 
     private final Index targetIndex;
