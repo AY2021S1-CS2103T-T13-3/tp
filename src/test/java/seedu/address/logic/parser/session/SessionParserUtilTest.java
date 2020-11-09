@@ -156,11 +156,5 @@ public class SessionParserUtilTest {
         assertTrue(SessionParserUtil.isInvalidDateTime(INVALID_START_TIME));
         assertFalse(SessionParserUtil.isInvalidDateTime(VALID_START_TIME));
     }
-
-    @Test
-    public void isInteger_sanityCheck() {
-        assertTrue(SessionParserUtil.isInteger("0"));
-        assertFalse(SessionParserUtil.isInteger("a"));
-    }
 }
 
